@@ -13,6 +13,7 @@ class ListScreen extends Component {
     }
 
     updateListNameChange = () => {
+        console.log(this.props)
         this.props.firestore.collection('todoLists').doc(this.props.todoList.id).update({"name": document.getElementById('name').value})
     }
 
