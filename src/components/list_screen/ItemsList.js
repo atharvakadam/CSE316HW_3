@@ -7,6 +7,8 @@ import firebase from 'firebase'
 import { Redirect } from 'react-router-dom'
 import { Link } from 'react-router-dom';
 import ItemScreen from '../item_screen/ItemScreen';
+import { Router } from 'react-router-dom';
+
 
 var img1 = require('../../images/icons/AddItem.png');
 // var key = this.props.todoList.length
@@ -23,9 +25,11 @@ class ItemsList extends React.Component {
         // key = key + 1
         // console.log(this.props.firestore.collection(this.props.todoList.id).items);
         // history.pushState(newItem,'idontknoe','/todoList/' + this.props.todoList.id + '/' + newItem.key)
-        console.log(this.props.history)
+        // console.log(this.props.history)
+        // history.push('/todoList/' + this.props.todoList.id + '/' + newItem.key);
         // this.props.history.push('/todoList/' + this.props.todoList.id + '/' + newItem.key);
-        return <Redirect to={'/todoList/' + this.props.todoList.id + '/' + newItem.key} ><ItemScreen /></Redirect>
+        console.log('FUCK')
+        return <ItemScreen newItemKey={this.props.todoList.items.length}/>
         
 
         // this.props.firestore.collection('todoLists').doc(this.props.todoList.id).update({items: firebase.firestore.FieldValue.arrayUnion(newItem)});
@@ -44,7 +48,9 @@ class ItemsList extends React.Component {
                     );})
                 }
                 <div className = "center" onClick={this.addItem}>
+                <Link to={'/todoList/' + todoList.id + '/' + this.props.todoList.items.length}>
                 <img src={img1} alt=""></img>
+                </Link>
                 </div>    
             </div>
             
