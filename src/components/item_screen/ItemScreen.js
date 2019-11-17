@@ -105,6 +105,7 @@ export class ItemScreen extends Component {
                     <br></br>
                         <div>
                             <Link to={'/todoList/' + Identity }><Button onClick={item?this.editItem:this.addNewItem}>Submit</Button></Link>
+                            <span> </span>
                             <Link to={'/todoList/' + Identity }><Button id="cancelButton">Cancel</Button></Link>
                             
                         </div>
