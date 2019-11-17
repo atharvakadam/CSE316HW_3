@@ -35,16 +35,29 @@ class ItemsList extends React.Component {
         // this.props.firestore.collection('todoLists').doc(this.props.todoList.id).update({items: firebase.firestore.FieldValue.arrayUnion(newItem)});
     }
 
+// onClick={this.sortItemsByCompleted}    
+
+
     render() {
         const todoList = this.props.todoList;
         const items = todoList.items;
         console.log("ItemsList: todoList.id " + todoList.id);
         return (
             <div className="todo-lists section">
+            <div className="list_item_header_card">
+                <span className="list_item_task_header">Task</span>
+                <span className="list_item_due_date_header">Due Date</span>
+                <span className="list_item_status_header">Status</span>
+                {/* added props for assignedTo,DueDate and completed*/}
+               
+            </div>
+
                 {items && items.map(function(item) {
                     item.id = item.key;
                     return (
+                    <Link to={'/todoList/' + todoList.id + '/' + item.id}>
                         <ItemCard todoList={todoList} item={item} />
+                    </Link>
                     );})
                 }
                 <div className = "center" onClick={this.addItem}>

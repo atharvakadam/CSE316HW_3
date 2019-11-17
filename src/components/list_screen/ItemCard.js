@@ -1,6 +1,7 @@
 import React from 'react';
 // import jquery from 'jquery';
 import { Modal, Button, Icon } from 'react-materialize';
+import { Link } from 'react-router-dom';
 
 class ItemCard extends React.Component {
 
@@ -22,15 +23,19 @@ class ItemCard extends React.Component {
             <div className="card z-depth-0 todo-list-link pink-lighten-3">
             
                 <div className="card-content grey-text text-darken-3">
-                    <span className="card-content">{item.description}</span>
-                    <span className="card-content">{item.due_date}</span>
-                    <span id={item.completed?'list_item_card_completed':'list_item_card_not_completed'} className="card-content">{item.completed?'Completed':'Pending'}</span>
-                    <div className="card-content">{"Assigned to:" + item.assigned_to}</div>
+                    <span id="item_description" className="card-content">{item.description}</span>
+                    <span id="item_due_date" className="card-content">{item.due_date}</span>
+                    <span id="item_completed" id={item.completed?'list_item_card_completed':'list_item_card_not_completed'} className="card-content">{item.completed?'Completed':'Pending'}</span>
+                    <br></br>
+                    <span id="item_assigned_to" className="card-content">{"Assigned to:" + item.assigned_to}</span>
+                    <span>
                     <Button style={{position:'relative'}} floating fab={{direction: 'left'}} className="red right" large>
                         <Button floating icon={<Icon>arrow_upward</Icon>} className="green" />
                         <Button floating icon={<Icon>arrow_downward</Icon>} className="green" />
                         <Button floating icon={<Icon>delete</Icon>} className="green" />
                     </Button>
+                    </span>
+                    
                     
                     
                     

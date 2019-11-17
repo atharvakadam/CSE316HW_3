@@ -14,11 +14,21 @@ class ListScreen extends Component {
 
     updateListNameChange = () => {
         console.log(this.props)
-        this.props.firestore.collection('todoLists').doc(this.props.todoList.id).update({"name": document.getElementById('name').value})
+        var name = document.getElementById('name').value
+        name = name.trim()
+        if (name === ''){
+            name = '(No Name)'
+        }
+        this.props.firestore.collection('todoLists').doc(this.props.todoList.id).update({"name": name})
     }
 
     updateListOwnerChange = () => {
-        this.props.firestore.collection('todoLists').doc(this.props.todoList.id).update({"owner": document.getElementById('owner').value})
+        var owner = document.getElementById('owner').value
+        owner = owner.trim()
+        if (owner === ''){
+            owner = '(No Owner)'
+        }
+        this.props.firestore.collection('todoLists').doc(this.props.todoList.id).update({"owner": owner})
     }
 
 
