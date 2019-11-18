@@ -166,3 +166,14 @@ div.banner {
   
 }
 
+.disabled {
+  background-color: lightgray;
+  /* cursor: not-allowed; */
+  disabled:true;
+  pointer-events: none;
+}
+/* added cursor property which handles the disabled button css for move up and move down*/
+.disabled:hover {
+  cursor: not-allowed;
+  color: var(--swatch-neutral);
+}
