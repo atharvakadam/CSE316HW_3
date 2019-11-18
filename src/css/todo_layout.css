@@ -54,10 +54,10 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 #list_item_card, #list_item_add_card, .list_item_header_card {
   position: relative;
   height: 50px;
-  grid-row-gap: 0px;
-  grid-column-gap: 50px;
-  margin-top: 0px;
-  margin-bottom: 5px;
+  display: grid;
+  grid-template-columns: 39% 23% 24%;
+  /* margin-top: 0px;
+  margin-bottom: 5px; */
   border-radius: 5px;
   cursor: pointer;
 }
@@ -65,10 +65,11 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 
 .list_item_task_header, .list_item_due_date_header, .list_item_status_header {
   position: absolute;
+  
   top: 5%;
 }
 
-.list_item_card_toolbar {
+.list_item_card_toolbar1 {
   position: absolute;
   left: 99%;
   width: 10%;
@@ -78,12 +79,24 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   grid-template-columns: 33% 33% 33%;
 }
 
+.list_item_card_toolbar2 {
+  position: absolute;
+  left: 78%;
+  width: 24%;
+  top: 20%;
+  height: 80%;
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+}
+
+
+
 .list_item_task_header {
-  left: 6%;
+  left: 10%;
 }
 .list_item_due_date_header {
-  left:25%;
+  left:37%;
 }
 .list_item_status_header {
-  left: 55%;
+  left: 63%;
 }

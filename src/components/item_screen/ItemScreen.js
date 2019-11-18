@@ -73,25 +73,26 @@ export class ItemScreen extends Component {
             <div>
                 <div class="containter white">
                     <br></br>
-                    <p><strong>Item</strong></p>
+                    <p style={{paddingLeft:'10px'}}><strong>Item</strong></p>
                     <br></br>
                         <div className="text_toolbar">
-                            <span>Description:      </span>
-                            <input ref='itemDescription' type="text" defaultValue={item?item.description:'Unknown'} />  
+                            <span style={{paddingRight:'30px',paddingLeft:'10px'}}>Description:      </span>
+                            <input style={{width:'70%'}} ref='itemDescription' type="text" defaultValue={item?item.description:'Unknown'} />  
                         </div>
                     <br></br>
                         <div className="text_toolbar">
-                            <span>Assigned To:      </span>
-                            <input ref='itemAssignedTo' type="text" defaultValue={item?item.assigned_to:'Unknown'} />  
+                            <span style={{paddingRight:'30px',paddingLeft:'10px'}}>Assigned To:      </span>
+                            <input style={{width:'70%'}} ref='itemAssignedTo' type="text" defaultValue={item?item.assigned_to:'Unknown'} />  
                         </div>
                     <br></br>
                         <div className="text_toolbar">
-                            <span>Date:      </span>
-                            <input ref='itemDueDate' type="date" defaultValue={item?item.due_date:''}/>  
+                            <span style={{paddingRight:'95px',paddingLeft:'10px'}}>Date:      </span>
+                            <input style={{width:'70%'}} ref='itemDueDate' type="date" defaultValue={item?item.due_date:''}/>  
+                            <span></span>
                         </div>
                     <br></br>
                         <div className="text_toolbar">
-                            <span>Completed:      </span>
+                            <span style={{paddingLeft:'10px'}}>Completed:      </span>
                             <label>
                             <input ref='itemCheckBox' type="checkbox" defaultChecked={item?(item.completed):false} />
                             <span></span>

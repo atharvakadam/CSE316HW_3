@@ -101,18 +101,30 @@ class ItemCard extends React.Component {
                     <span id="itemDueDate" className="card-content">{item.due_date}</span>
                     <span id="itemCheckBox" id={item.completed?'list_item_card_completed':'list_item_card_not_completed'} className="card-content">{item.completed?'Completed':'Pending'}</span>
                     <br></br>
-                    <span id="itemAssignedTo" className="card-content">{"Assigned to:" + item.assigned_to}</span>
-                    <span className="list_item_card_toolbar">
-                        <Button onClick={(e) => this.moveItemUp(e,this.props.todoList,item)}>UP</Button>
-                        <Button onClick={(e) => this.moveItemDown(e,this.props.todoList,item)}>DN</Button>
-                        <Button onClick={(e) => this.deleteItem(e,this.props.todoList,item)}>RE</Button>
+                    
+                    <span style={{top:'50px'}} className="list_item_card_toolbar1" >
+                        <Button style={{position:'relative'}} floating fab={{direction: 'left'}} className="red right" large>
+                            <span className="list_item_card_toolbar2">
+                                <Button floating icon={<Icon>arrow_upward</Icon>} className="green" onClick={(e) => this.moveItemUp(e,this.props.todoList,item)}/>
+                                <Button floating icon={<Icon>arrow_downward</Icon>} className="green" onClick={(e) => this.moveItemDown(e,this.props.todoList,item)} />
+                                <Button floating icon={<Icon>delete</Icon>} className="green" onClick={(e) => this.deleteItem(e,this.props.todoList,item)}/>
+                            </span>    
+                        </Button>
                     </span>
                 </div>
+                <div style={{paddingLeft:'50px',fontSize:'14px'}} id="itemAssignedTo" className="card-content grey-text text-darken-3">{"Assigned to:" + item.assigned_to}</div>
             </div>
         );
     }
 }
-                        
+ 
+// <span className="list_item_card_toolbar">
+//                         <Button onClick={(e) => this.moveItemUp(e,this.props.todoList,item)}>UP</Button>
+//                         <Button onClick={(e) => this.moveItemDown(e,this.props.todoList,item)}>DN</Button>
+//                         <Button onClick={(e) => this.deleteItem(e,this.props.todoList,item)}>RE</Button>
+//                     </span>
+
+
 // <Button style={{position:'relative'}} floating fab={{direction: 'left'}} className="red right" large>
 //                         <Button floating icon={<Icon>arrow_upward</Icon>} className="green" />
 //                         <Button floating icon={<Icon>arrow_downward</Icon>} className="green" />

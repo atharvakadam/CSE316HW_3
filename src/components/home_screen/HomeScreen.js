@@ -22,7 +22,7 @@ class HomeScreen extends Component {
         if (!this.props.auth.uid) {
             return <Redirect to="/login" />;
         }
-        this.props.firestore.collection("todoLists").orderBy("timeStamp", 'asc')
+        this.props.firestore.collection("todoLists").orderBy("TimeStamp", 'asc')
 
         return (
             <div className="dashboard container">
@@ -58,6 +58,6 @@ const mapStateToProps = (state) => {
 export default compose(
     connect(mapStateToProps),
     firestoreConnect([
-      { collection: 'todoLists' },
+      { collection: 'todoLists'},
     ]),
 )(HomeScreen);
