@@ -4,6 +4,8 @@ import { compose } from 'redux';
 import { NavLink, Redirect } from 'react-router-dom';
 import { firestoreConnect } from 'react-redux-firebase';
 import TodoListLinks from './TodoListLinks'
+import Query from 'firebase'
+import Direction from 'firebase';
 
 class HomeScreen extends Component {
 
@@ -20,6 +22,7 @@ class HomeScreen extends Component {
         if (!this.props.auth.uid) {
             return <Redirect to="/login" />;
         }
+        this.props.firestore.collection("todoLists").orderBy("timeStamp", 'asc')
 
         return (
             <div className="dashboard container">

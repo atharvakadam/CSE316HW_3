@@ -96,7 +96,8 @@ export class ItemScreen extends Component {
                         <div className="text_toolbar">
                             <span>Completed:      </span>
                             <label>
-                            <input ref='itemCheckBox' type="checkbox" defaultChecked={item?(item.completed):false}/>
+                            <input ref='itemCheckBox' type="checkbox" defaultChecked={item?(item.completed):false} />
+                            <span></span>
                             </label>
                             
                             

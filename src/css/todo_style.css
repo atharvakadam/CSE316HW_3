@@ -41,11 +41,13 @@ div.banner {
 
 #list_item_card_completed {
   color: green;
-  padding-left:12%;
+  left: 10px;
+  align-content: center;
+  /* padding-left:12%; */
 }
 #list_item_card_not_completed {
   color: red;
-  padding-left:14%;
+  /* padding-left:14%; */
 }
 
 #list_trash{

@@ -51,7 +51,7 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 }
 
 /* LIST SCREEN CLASSES */
-.list_item_card, .list_item_add_card, .list_item_header_card {
+#list_item_card, #list_item_add_card, .list_item_header_card {
   position: relative;
   height: 50px;
   grid-row-gap: 0px;
@@ -62,6 +62,7 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
   cursor: pointer;
 }
 
+
 .list_item_task_header, .list_item_due_date_header, .list_item_status_header {
   position: absolute;
   top: 5%;
@@ -69,10 +70,10 @@ input[type=password]:not(.browser-default):focus:not([readonly]) + label{
 
 .list_item_card_toolbar {
   position: absolute;
-  left: 85%;
-  width: 15%;
-  top: 5%;
-  height: 90%;
+  left: 99%;
+  width: 10%;
+  top: 30%;
+  height: 80%;
   display: grid;
   grid-template-columns: 33% 33% 33%;
 }

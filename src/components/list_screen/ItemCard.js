@@ -2,6 +2,9 @@ import React from 'react';
 // import jquery from 'jquery';
 import { Modal, Button, Icon } from 'react-materialize';
 import { Link } from 'react-router-dom';
+import { firestoreConnect, firebaseConnect } from 'react-redux-firebase';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
 
 class ItemCard extends React.Component {
 
@@ -16,36 +19,105 @@ class ItemCard extends React.Component {
         //   });
     }
 
+    moveItemUp = (e,todoList,item) => {
+        e.preventDefault();
+        console.log('MoveItemUp')
+        console.log(todoList.items)
+        console.log(item)
+        var newItemsList = todoList.items;
+        var listItemIndex = item.key;
+        console.log(newItemsList[item.key])
+        if(item.key!=0){
+            let temp = newItemsList[listItemIndex];
+            newItemsList[listItemIndex] = newItemsList[listItemIndex-1];
+            newItemsList[listItemIndex-1] = temp
+
+            let tempKey = newItemsList[listItemIndex].key;
+            newItemsList[listItemIndex].key = newItemsList[listItemIndex-1].key;
+            newItemsList[listItemIndex-1].key = tempKey
+        }
+
+        this.props.firestore.collection('todoLists').doc(todoList.id).update({items:newItemsList});
+    }
+
+    moveItemDown = (e,todoList,item) => {
+        e.preventDefault();
+        console.log('MoveItemDown')
+        console.log(todoList.items)
+        console.log(item)
+        var newItemsList = todoList.items;
+        var listItemIndex = item.key;
+        console.log(newItemsList[item.key])
+        if(item.key!=newItemsList.length-1){
+            let temp = newItemsList[listItemIndex];
+            newItemsList[listItemIndex] = newItemsList[listItemIndex+1];
+            newItemsList[listItemIndex+1] = temp
+
+            let tempKey = newItemsList[listItemIndex].key;
+            newItemsList[listItemIndex].key = newItemsList[listItemIndex+1].key;
+            newItemsList[listItemIndex+1].key = tempKey
+        }
+
+        this.props.firestore.collection('todoLists').doc(todoList.id).update({items:newItemsList});
+        
+    }
+
+    deleteItem = (e,todoList,item) => {
+        e.preventDefault();
+        console.log('DeleteItem')
+        console.log(item);
+        console.log(todoList.items)
+        console.log(item)
+        var newItemsList = todoList.items;
+        var listItemIndex = item.key;
+        // var itemKey = newItemsList[item.key].key
+        // console.log(newItemsList[item.key].key)
+        console.log('BEFORE' )
+        console.log(newItemsList)
+        newItemsList.splice(item.key,1);
+        console.log('AFTER')
+        console.log(newItemsList)
+        for(let i=item.key;i<newItemsList.length;i++){
+            
+            newItemsList[i].key = newItemsList[i].key - 1;
+        }
+        console.log('Final list to replace:')
+        console.log(newItemsList)
+        // for(let i=listItemIndex+1;i<newItemsList.length;i++){
+        //     newItemsList[i].key = newItemsList[i].key - 1;
+        // }
+
+        this.props.firestore.collection('todoLists').doc(todoList.id).update({items:newItemsList});
+
+    }
 
     render() {
         const { item } = this.props;  
         return (
             <div className="card z-depth-0 todo-list-link pink-lighten-3">
             
-                <div className="card-content grey-text text-darken-3">
-                    <span id="item_description" className="card-content">{item.description}</span>
-                    <span id="item_due_date" className="card-content">{item.due_date}</span>
-                    <span id="item_completed" id={item.completed?'list_item_card_completed':'list_item_card_not_completed'} className="card-content">{item.completed?'Completed':'Pending'}</span>
+                <div id="list_item_card" className="card-content grey-text text-darken-3">
+                    <span id="itemDescription" className="card-content">{item.description}</span>
+                    <span id="itemDueDate" className="card-content">{item.due_date}</span>
+                    <span id="itemCheckBox" id={item.completed?'list_item_card_completed':'list_item_card_not_completed'} className="card-content">{item.completed?'Completed':'Pending'}</span>
                     <br></br>
-                    <span id="item_assigned_to" className="card-content">{"Assigned to:" + item.assigned_to}</span>
-                    <span>
-                    <Button style={{position:'relative'}} floating fab={{direction: 'left'}} className="red right" large>
-                        <Button floating icon={<Icon>arrow_upward</Icon>} className="green" />
-                        <Button floating icon={<Icon>arrow_downward</Icon>} className="green" />
-                        <Button floating icon={<Icon>delete</Icon>} className="green" />
-                    </Button>
+                    <span id="itemAssignedTo" className="card-content">{"Assigned to:" + item.assigned_to}</span>
+                    <span className="list_item_card_toolbar">
+                        <Button onClick={(e) => this.moveItemUp(e,this.props.todoList,item)}>UP</Button>
+                        <Button onClick={(e) => this.moveItemDown(e,this.props.todoList,item)}>DN</Button>
+                        <Button onClick={(e) => this.deleteItem(e,this.props.todoList,item)}>RE</Button>
                     </span>
-                    
-                    
-                    
-                    
                 </div>
             </div>
         );
     }
 }
                         
-
+// <Button style={{position:'relative'}} floating fab={{direction: 'left'}} className="red right" large>
+//                         <Button floating icon={<Icon>arrow_upward</Icon>} className="green" />
+//                         <Button floating icon={<Icon>arrow_downward</Icon>} className="green" />
+//                         <Button floating icon={<Icon>delete</Icon>} className="green" />
+//                     </Button>
 
 
 
@@ -93,5 +165,19 @@ class ItemCard extends React.Component {
 
 
 
+const mapStateToProps = (state, ownProps) => {
+    console.log("OWNPROPS:")
+    console.log(ownProps);
+    const todoList = ownProps.todoList;
+    return {
+        todoList,
+        auth: state.firebase.auth,
+    };
+};
 
-export default ItemCard;
+export default compose(
+    connect(mapStateToProps),
+    firestoreConnect([
+        { collection: 'todoLists' },
+    ]),
+)(ItemCard);

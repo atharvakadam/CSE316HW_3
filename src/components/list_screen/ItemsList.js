@@ -35,8 +35,6 @@ class ItemsList extends React.Component {
         // this.props.firestore.collection('todoLists').doc(this.props.todoList.id).update({items: firebase.firestore.FieldValue.arrayUnion(newItem)});
     }
 
-// onClick={this.sortItemsByCompleted}    
-
 
     render() {
         const todoList = this.props.todoList;
