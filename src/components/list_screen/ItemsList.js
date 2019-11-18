@@ -28,7 +28,6 @@ class ItemsList extends React.Component {
         // console.log(this.props.history)
         // history.push('/todoList/' + this.props.todoList.id + '/' + newItem.key);
         // this.props.history.push('/todoList/' + this.props.todoList.id + '/' + newItem.key);
-        console.log('FUCK')
         return <ItemScreen newItemKey={this.props.todoList.items.length}/>
         
 

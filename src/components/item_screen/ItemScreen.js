@@ -55,9 +55,6 @@ export class ItemScreen extends Component {
         });
     }
 
-    // returnBackToList = (){
-    //     return <Redirect to={'/todoList/' + Identity }/>
-    // }
 
     render() {
             // console.log(this.props.match.params.id)
