@@ -22,7 +22,7 @@ class HomeScreen extends Component {
         if (!this.props.auth.uid) {
             return <Redirect to="/login" />;
         }
-        this.props.firestore.collection("todoLists").orderBy("TimeStamp", 'asc')
+        // this.props.firestore.collection("todoLists").orderBy("TimeStamp", 'asc')
 
         return (
             <div className="dashboard container">
