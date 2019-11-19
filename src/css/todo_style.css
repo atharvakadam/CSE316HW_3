@@ -178,3 +178,8 @@ div.banner {
   cursor: not-allowed;
   color: var(--swatch-neutral);
 }
+
+.ListCard{
+  border-color: #111111;
+  border-radius: 10px;
+}

@@ -13,22 +13,30 @@ class HomeScreen extends Component {
 
         var newObject = {name:'Unknown', 
                         owner:'Unknown', 
-                        items:[]}  
+                        items:[],
+                        sortingCriteria:true,
+                        timestamp:this.props.firestore.FieldValue.serverTimestamp()}  
 
         console.log(this.props.firestore.collection('todoLists').add(newObject));
     }
+
+    updateTimeStamp = (id) =>{
+        this.props.firestore.collection('todoLists').doc(id).update({timestamp:this.props.firestore.FieldValue.serverTimestamp()})
+    }
+
 
     render() {
         if (!this.props.auth.uid) {
             return <Redirect to="/login" />;
         }
         // this.props.firestore.collection("todoLists").orderBy("TimeStamp", 'asc')
+        
 
         return (
             <div className="dashboard container">
                 <div className="row">
                     <div className="col s12 m4">
-                        <TodoListLinks />
+                        <TodoListLinks updateTimeStamp={this.updateTimeStamp} />
                     </div>
 
                     <div className="col s8">
@@ -58,6 +66,6 @@ const mapStateToProps = (state) => {
 export default compose(
     connect(mapStateToProps),
     firestoreConnect([
-      { collection: 'todoLists'},
+      { collection: 'todoLists',orderBy:['timestamp','desc']},
     ]),
 )(HomeScreen);

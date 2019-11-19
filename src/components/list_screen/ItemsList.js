@@ -34,6 +34,36 @@ class ItemsList extends React.Component {
         // this.props.firestore.collection('todoLists').doc(this.props.todoList.id).update({items: firebase.firestore.FieldValue.arrayUnion(newItem)});
     }
 
+    sortList = (todoList,sortByKey,isIncreasing) =>{
+        console.log(todoList)
+
+        todoList.items.sort((itemA,itemB)=>{
+            if(!isIncreasing){
+                let tempVar = itemA;
+                itemA = itemB;
+                itemB = tempVar;
+            }
+            if(itemA[sortByKey]<itemB[sortByKey]){
+                return -1;
+            }
+            else if(itemA[sortByKey]>itemB[sortByKey]){
+                return 1;
+            }
+            else{
+                return 0;
+            }
+
+        })
+
+        //adjusting the keys
+        for(let i =0;i<todoList.items.length;i++){
+            todoList.items[i].key = i
+        }
+
+
+        this.props.firestore.collection('todoLists').doc(todoList.id).update({items:todoList.items,sortingCriteria:!isIncreasing});
+    }
+
 
     render() {
         const todoList = this.props.todoList;
@@ -42,9 +72,9 @@ class ItemsList extends React.Component {
         return (
             <div className="todo-lists section">
             <div className="list_item_header_card">
-                <span className="list_item_task_header">Task</span>
-                <span className="list_item_due_date_header">Due Date</span>
-                <span className="list_item_status_header">Status</span>
+                <span className="list_item_task_header" onClick={() => this.sortList(todoList,'description',todoList.sortingCriteria)}>Task</span>
+                <span className="list_item_due_date_header" onClick={() => this.sortList(todoList,'due_date',todoList.sortingCriteria)} >Due Date</span>
+                <span className="list_item_status_header" onClick={() => this.sortList(todoList,'completed',todoList.sortingCriteria)} >Status</span>
                 {/* added props for assignedTo,DueDate and completed*/}
                
             </div>

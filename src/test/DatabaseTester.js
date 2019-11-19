@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux';
 import todoJson from './TestTodoListData.json'
 import { getFirestore } from 'redux-firestore';
+import { firestore } from 'firebase';
 
 class DatabaseTester extends React.Component {
 
@@ -24,8 +25,11 @@ class DatabaseTester extends React.Component {
             fireStore.collection('todoLists').add({
                     name: todoListJson.name,
                     owner: todoListJson.owner,
-                    items: todoListJson.items
+                    items: todoListJson.items,
+                    sortingCriteria:true,
+                    timestamp: firestore.FieldValue.serverTimestamp()
                 }).then(() => {
+                    // console.log('timestamp:' + fireStore.FieldValue.serverTimestamp())
                     console.log("DATABASE RESET");
                 }).catch((err) => {
                     console.log(err);

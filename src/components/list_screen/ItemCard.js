@@ -42,7 +42,9 @@ class ItemCard extends React.Component {
 
     moveItemDown = (e,todoList,item) => {
         e.preventDefault();
-        console.log('MoveItemDown')
+        
+        
+            console.log('MoveItemDown')
         console.log(todoList.items)
         console.log(item)
         var newItemsList = todoList.items;
@@ -59,6 +61,8 @@ class ItemCard extends React.Component {
         }
 
         this.props.firestore.collection('todoLists').doc(todoList.id).update({items:newItemsList});
+        
+        
         
     }
 
@@ -91,10 +95,14 @@ class ItemCard extends React.Component {
 
     }
 
+    stopPropagation = (e) => {
+        e.preventDefault();
+    }
+
     render() {
         const { item } = this.props;  
         return (
-            <div className="card z-depth-0 todo-list-link pink-lighten-3">
+            <div className="card z-depth-0 todo-list-link pink-lighten-3 border">
             
                 <div id="list_item_card" className="card-content grey-text text-darken-3">
                     <span style={{fontSize:'16px',paddingLeft:'27px',paddingTop:'20px'}} id="itemDescription" className="card-title">{item.description}</span>
@@ -102,11 +110,11 @@ class ItemCard extends React.Component {
                     <span id="itemCheckBox" id={item.completed?'list_item_card_completed':'list_item_card_not_completed'} className="card-content">{item.completed?'Completed':'Pending'}</span>
                     <br></br>
                     
-                    <span style={{top:'50px'}} className="list_item_card_toolbar1" >
+                    <span style={{top:'50px'}} className="list_item_card_toolbar1" onClick={(e) => this.stopPropagation(e)}>
                         <Button style={{position:'relative'}} floating fab={{direction: 'left'}} className="red right" large>
                             <span className="list_item_card_toolbar2">
-                                <Button disabled={item.key!==0?false:true} floating icon={<Icon>arrow_upward</Icon>} className={item.key!==0?'green':'disabled'} onClick={(e) => this.moveItemUp(e,this.props.todoList,item)}/>
-                                <Button disabled={(item.key!==(this.props.todoList.items.length-1))?false:true} floating icon={<Icon>arrow_downward</Icon>} className={(item.key!==(this.props.todoList.items.length-1))?'green':'disabled'} onClick={(e) => this.moveItemDown(e,this.props.todoList,item)} />
+                                <Button floating icon={<Icon>arrow_upward</Icon>} className={item.key!==0?'green':'disabled'} onClick={(e) => this.moveItemUp(e,this.props.todoList,item)}/>
+                                <Button floating icon={<Icon>arrow_downward</Icon>} className={(item.key!==(this.props.todoList.items.length-1))?'green':'disabled'} onClick={(e) => this.moveItemDown(e,this.props.todoList,item)} />
                                 <Button floating icon={<Icon>delete</Icon>} className="green" onClick={(e) => this.deleteItem(e,this.props.todoList,item)}/>
                             </span>    
                         </Button>
@@ -118,6 +126,8 @@ class ItemCard extends React.Component {
     }
 }
  
+//disabled={(item.key!==(this.props.todoList.items.length-1))?false:true}
+//disabled={item.key!==0?false:true}
 // <span className="list_item_card_toolbar">
 //                         <Button onClick={(e) => this.moveItemUp(e,this.props.todoList,item)}>UP</Button>
 //                         <Button onClick={(e) => this.moveItemDown(e,this.props.todoList,item)}>DN</Button>

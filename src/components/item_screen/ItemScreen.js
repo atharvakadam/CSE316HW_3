@@ -57,6 +57,16 @@ export class ItemScreen extends Component {
 
 
     render() {
+
+        const auth = this.props.auth;
+        if (!this.props.auth.uid) {
+            return <Redirect to="/login" />;
+        }
+        // if(!this.props.todoList){
+        //     console.log('FUCKINGHELL')
+        //     return <Redirect to="/login" />;
+        // }
+
             // console.log(this.props.match.params.id)
             // console.log(this.props.match.params.key)
             // console.log(this.props.firestore.collection('todoLists').doc(this.props.match.params.id).get())
@@ -127,7 +137,9 @@ const mapStateToProps = (state, ownProps) => {
     console.log(todoLists)
     var todoList = todoLists ? todoLists[id] : null;
     console.log(todoList)
-    todoList.id = id;
+    if(todoList!=null){
+        todoList.id = id;
+    }
     const itemNo = ownProps.match.params.key
     console.log(itemNo)
     return {
@@ -141,7 +153,7 @@ const mapStateToProps = (state, ownProps) => {
 export default compose(
     connect(mapStateToProps),
     firestoreConnect([
-        { collection: 'todoLists' },
+        { collection: 'todoLists'},
     ]),
 )(ItemScreen);
 

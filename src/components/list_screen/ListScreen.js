@@ -72,6 +72,7 @@ class ListScreen extends Component {
         if (!auth.uid) {
             return <Redirect to="/" />;
         }
+        
 //<div className="right" id='list_trash'>&#128465;</div>
 //header="Modal Header"
         console.log(this.props.history)
@@ -123,6 +124,6 @@ const mapStateToProps = (state, ownProps) => {
 export default compose(
   connect(mapStateToProps),
   firestoreConnect([
-    { collection: 'todoLists' },
+    { collection: 'todoLists'},
   ]),
 )(ListScreen);
